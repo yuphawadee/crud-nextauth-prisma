@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String   @unique
+  password  String
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// model Student {
+//   id        Int       @id @default(autoincrement())
+//   stId      String
+//   name      String
+//   tel       String
+//   type      String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime? @updatedAt
+// }
+
+
+// model Internship {
+//   id        Int       @id @default(autoincrement())
+//   year      String
+//   stId      String
+//   comId     String
+//   type      String
+//   desc      String
+//   status    String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime? @updatedAt
+// }
+
+model Student {
+  id        Int       @id @default(autoincrement())
+  stId      String    @unique
+  name      String
+  tel       String
+  type      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  internships Internship[] // ความสัมพันธ์แบบ one-to-many กับ Internship
+}
+
+model Internship {
+  id        Int       @id @default(autoincrement())
+  year      String
+  stId      String    @unique
+  comId     String
+  type      String
+  desc      String
+  status    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  student   Student   @relation(fields: [stId], references: [stId]) // ความสัมพันธ์กับ Student
+  organization Organization @relation(fields: [comId], references: [comId]) // ความสัมพันธ์กับ Organization
+}
+
+model Organization {
+  id          Int       @id @default(autoincrement())
+  comId       String    @unique
+  name        String
+  address     String
+  coordinator String
+  tel         String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  internships Internship[] // ความสัมพันธ์กลับจาก Organization ไปยัง Internship
+}
+
+
+// model Internship {
+//   id        Int       @id @default(autoincrement())
+//   year      String
+//   stId      String
+//   comId     String
+//   type      String
+//   desc      String
+//   status    String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime? @updatedAt
+
+//   student   Student   @relation(fields: [stId], references: [stId]) // ความสัมพันธ์กับ Student
+// }
+
+// model Organization {
+//   id          Int       @id @default(autoincrement())
+//   comId       String
+//   name        String
+//   address     String
+//   coordinator String
+//   tel         String
+//   createdAt   DateTime  @default(now())
+//   updatedAt   DateTime? @updatedAt
+// }

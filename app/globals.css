@@ -1,21 +1,76 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #141332;
+  --foreground: #FFFFFF;
+  --primary: #4880FF;
+  --primary-2: #343C6A;
+  --primary-3: #718EBF;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #141b1f;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: "Noto Sans Thai", sans-serif; */
+  font-family: "Sarabun", serif;
+}
+.spinner {
+  border: 4px solid #f3f3f3; /* สีของกรอบ */
+  border-top: 4px solid #3498db; /* สีของการหมุน */
+  border-radius: 50%; /* ทำให้เป็นวงกลม */
+  width: 40px; /* ขนาดของวงกลม */
+  height: 40px; /* ขนาดของวงกลม */
+  animation: spin 2s linear infinite; /* การหมุน */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@layer utilities {
+  .add {
+    @apply bg-[#14A44D] text-[#FFFFFF] p-2 px-5 rounded-lg
+  }
+  
+  .edit {
+    @apply bg-[#E4A11B] text-[#FFFFFF] p-2 rounded-lg
+    /* background-color: #E4A11B;
+    color: #FFFFFF;
+    /* color: rgb(255, 167, 86);
+    background-color: rgb(255, 167, 86, 0.2);
+    padding: 10px;
+    border-radius: 12px; */
+  }
+  .delete {
+    @apply bg-[#DC4C64] text-[#FFFFFF] p-2 rounded-lg
+    /* background-color: #DC4C64;
+    color: #FFFFFF;
+    color: rgb(239, 56, 38);
+    background-color: rgb(239, 56, 38, 0.2); 
+    padding: 10px;
+    border-radius: 12px; */
+  }
+  .inputBox {
+    @apply bg-transparent border-[1px] border-slate-500 p-3 rounded 
+}
+.inputBox~span {
+    @apply absolute  p-[15px] pointer-events-none duration-200
+}
+.inputBox:valid~span, 
+.inputBox:focus~span {
+    @apply transform translate-x-[10px] translate-y-[-10px] text-sm py-0 px-1
+}
+
 }
